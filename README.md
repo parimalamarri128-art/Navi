@@ -1,190 +1,156 @@
-# Navi — Windows Desktop Assistant
+# 🤖 Navi AI Assistant
 
-Navi is a Python-based Windows desktop assistant that lets users perform common computer tasks using simple commands.
+Navi is a Python-based AI desktop assistant for Windows that combines local AI, voice commands, Windows automation, and productivity tools into one application.
 
-## ✨ Features
+---
 
-* 🌐 Open websites
-* 🔎 Google and YouTube search
-* 📁 Create folders
-* 📄 Create files
-* ✏️ Rename files and folders
-* 📋 Copy files and folders
-* 🚚 Move files and folders
-* 🗑️ Delete files and folders with confirmation
-* 🖼️ Search images by name
-* 🎬 Search videos
-* 📑 Search PDF files
-* 📄 Search documents
-* 🔍 Search files by name
-* 📂 Open search results using commands such as `open 1`, `open 2`
-* 📄 Find and open resume files
-* 🖥️ Open supported Windows applications
-* ⚙️ Basic Windows system controls
+# ✨ Features
 
-## 💻 Requirements
+## 🤖 AI
+- Local AI (Ollama + Llama)
+- AI Chat
+- Natural Language Commands
 
-* Windows
-* Python 3.10 or later
-* Git
-* VS Code (recommended)
+## 🎤 Voice Assistant
+- Voice Commands
+- Text Commands
+- Text-to-Speech
 
-## 🚀 Installation
+## 🖥️ Windows Automation
+- Open Chrome
+- Open Notepad
+- Open Calculator
+- Open Paint
+- Open File Explorer
+- Open Settings
+- Open Command Prompt
 
-Clone the repository:
+## 📁 File Management
+- Create Files & Folders
+- Rename Files & Folders
+- Copy Files & Folders
+- Move Files & Folders
+- Delete Files & Folders
+- Search Files
+
+## 📝 Productivity
+- Notes Manager
+- Reminder Manager
+
+## 🎵 Media Controls
+- Play / Pause
+- Next Song
+- Previous Song
+- Stop Music
+- Volume Control
+- Brightness Control
+
+## 📸 Utilities
+- Screenshot Tool
+
+## 👨‍💻 Special Modes
+- Developer Mode
+- IT Support Mode
+- Hardware Support Mode
+
+---
+
+# 💻 Requirements
+
+- Windows 10/11
+- Python 3.10+
+- Ollama
+- Llama Model
+- VS Code (Recommended)
+
+---
+
+# 🚀 Installation
 
 ```bash
 git clone https://github.com/parimalamarri128-art/Navi.git
-```
 
-Open the Navi folder:
-
-```bash
 cd Navi
-```
 
-Install the required Python packages:
+pip install -r requirements.txt
 
-```bash
-python -m pip install -r requirements.txt
-```
-
-Run Navi:
-
-```bash
 python main.py
 ```
 
-## 🎯 Example Commands
+---
 
-### 🌐 Websites
-
-```text
-open youtube
-open gmail
-open github
-```
-
-### 📄 Files
+# 🎯 Example Commands
 
 ```text
-create file test.txt
-rename test.txt to newtest.txt
-copy newtest.txt to Desktop
-move newtest.txt to Downloads
-delete newtest.txt
+open chrome
+open notepad
+play music
+pause
+next song
+stop music
+take screenshot
+increase volume
+decrease brightness
+create note
+set reminder meeting at 6 pm
 ```
 
-### 📁 Folders
+---
 
-```text
-create folder TestNavi
-rename TestNavi to NewNavi
-copy NewNavi to Desktop
-move NewNavi to Downloads
-delete NewNavi
-```
-
-### 🔎 Search
-
-```text
-my photos
-my videos
-my pdfs
-my documents
-find my resume
-```
-
-After a search, Navi can open a specific result:
-
-```text
-open 1
-open 2
-open 3
-```
-
-## 🛡️ Safe Delete Confirmation
-
-Before deleting a file or folder, Navi asks for confirmation.
-
-Example:
-
-```text
-Navi: I found:
-C:\Users\PC\Documents\Navi\newnavi
-
-Are you sure you want to delete it?
-Reply with yes or no.
-```
-
-The user can respond with:
-
-```text
-yes
-```
-
-or:
-
-```text
-no
-```
-
-## 🧩 Project Structure
+# 📂 Project Structure
 
 ```text
 Navi/
-├── ai.py
+│
+├── ai_chat.py
 ├── app_manager.py
-├── browser_manager.py
+├── brightness_manager.py
+├── developer_manager.py
 ├── file_manager.py
+├── hardware_manager.py
 ├── intent_manager.py
+├── it_manager.py
 ├── main.py
-├── requirements.txt
-├── settings.py
-├── system_manager.py
+├── media_manager.py
+├── notes_manager.py
+├── reminder_manager.py
+├── screenshot_manager.py
 ├── ui.py
-├── utils.py
 ├── voice.py
+├── volume_manager.py
+├── requirements.txt
 ├── README.md
-├── LICENSE
-└── .gitignore
+└── LICENSE
 ```
 
-## 🛣️ Roadmap
+---
 
-Future versions may include:
+# 🛣️ Roadmap
 
-* 🎤 Improved voice commands
-* 🧠 Better natural-language understanding
-* 🤖 AI-powered assistance
-* ⚙️ More Windows automation
-* 🧑‍💻 Developer tools
-* 🎫 Developer ticket and issue assistance
-* 🔗 Integration with developer platforms
-* 🔌 More application integrations
+- Better AI Conversations
+- Premium UI
+- Plugin Support
+- Cross Platform Support
+- Smart Automation
+- Cloud Sync
 
-## 🧪 Current Version
+---
+
+# 📦 Current Release
 
 **v1.0.0**
 
-This is the first public release of Navi.
+---
 
-## 📜 License
+# 📜 License
 
-Navi is released under the **MIT License**.
+MIT License
 
-See the [LICENSE](LICENSE) file for details.
+---
 
-## 👨‍💻 Project
+# ⭐ Support
 
-Navi is an experimental Windows assistant project focused on making common computer operations easier through simple commands.
+If you like this project, please give it a ⭐ on GitHub.
 
-Contributions, suggestions, and improvements are welcome.
-
-## ⭐ Support
-
-If you find Navi useful, consider giving the repository a ⭐ on GitHub.
-
-Repository:
-
+**Repository:**  
 https://github.com/parimalamarri128-art/Navi
