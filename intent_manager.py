@@ -46,6 +46,190 @@ def detect_intent(text):
             "url": WEBSITES[website_text]
         }
 
+        # =========================================================
+    # FOLDER SEARCH / OPEN
+    # =========================================================
+
+    if text.startswith("find folder "):
+
+        folder_name = text[len("find folder "):].strip()
+
+        if folder_name:
+            return {
+                "action": "find_folder",
+                "name": folder_name
+            }
+
+    if text.startswith("open folder "):
+
+        folder_name = text[len("open folder "):].strip()
+
+        if folder_name:
+            return {
+                "action": "open_folder",
+                "path": folder_name
+            }
+
+    if text.startswith("find my ") and text.endswith(" folder"):
+
+        folder_name = text[len("find my "):-len(" folder")].strip()
+
+        if folder_name:
+            return {
+                "action": "find_folder",
+                "name": folder_name
+            }
+
+        # =========================================================
+# APPLICATIONS
+# =========================================================
+
+    if text == "open word":
+     return {"action": "open_word"}
+
+    elif text == "open excel":
+       return {"action": "open_excel"}
+
+    elif text == "open powerpoint":
+       return {"action": "open_powerpoint"}
+
+    elif text == "open whatsapp":
+        return {"action": "open_whatsapp"}
+
+    elif text == "open telegram":
+       return {"action": "open_telegram"}
+
+    elif text == "open edge":
+       return {"action": "open_edge"}
+
+    elif text == "open spotify app":
+       return {"action": "open_spotify"}
+
+    # =========================================================
+# VOLUME
+# =========================================================
+
+    if text in ("volume up", "increase volume"):
+       return {"action": "volume_up"}
+
+    elif text in ("volume down", "decrease volume"):
+       return {"action": "volume_down"}
+
+    elif text == "mute":
+       return {"action": "mute_volume"}
+
+    elif text == "unmute":
+       return {"action": "unmute_volume"}
+
+    # =========================================================
+# BRIGHTNESS
+# =========================================================
+
+    if text in ("brightness up", "increase brightness"):
+      return {"action": "brightness_up"}
+
+    elif text in ("brightness down", "decrease brightness"):
+       return {"action": "brightness_down"}
+
+    elif text == "current brightness":
+      return {"action": "get_brightness"}
+
+    elif text.startswith("set brightness to "):
+       level = text.replace("set brightness to ", "").replace("%", "").strip()
+
+       if level.isdigit():
+        return {
+            "action": "set_brightness",
+            "level": int(level)
+        }
+
+    # =========================================================
+# SCREENSHOT
+# =========================================================
+
+    if text in (
+       "take screenshot",
+       "capture screen",
+       "take screen shot",
+  ):
+     return {
+        "action": "take_screenshot"
+    }
+
+    # =========================================================
+# NOTES
+# =========================================================
+
+    if text.startswith("create note "):
+     return {
+        "action": "create_note",
+        "name": text.replace("create note ", "").strip()
+    }
+
+    elif text == "show my notes":
+       return {
+        "action": "show_notes"
+    }
+
+    elif text.startswith("open note "):
+       return {
+        "action": "open_note",
+        "name": text.replace("open note ", "").strip()
+    }
+
+    elif text.startswith("delete note "):
+       return {
+        "action": "delete_note",
+        "name": text.replace("delete note ", "").strip()
+    }
+
+    # =========================================================
+# REMINDERS
+# =========================================================
+    if text.startswith("set reminder "):
+
+       reminder = text[len("set reminder "):]
+
+       if " at " in reminder:
+            task, time = reminder.rsplit(" at ", 1)
+
+            return {
+               "action": "create_reminder",
+               "task": task.strip(),
+               "time": time.strip()
+        }
+
+    elif text == "show reminders":
+
+       return {
+           "action": "show_reminders"
+    }
+
+    elif text.startswith("delete reminder "):
+
+       task = text[len("delete reminder "):].strip()
+
+       return {
+          "action": "delete_reminder",
+          "task": task
+    }
+
+    # =========================================================
+# MEDIA CONTROLS
+# =========================================================
+
+    if text in ("play", "pause", "play music", "pause music"):
+       return {"action": "play_pause"}
+
+    elif text in ("next song", "next music"):
+       return {"action": "next_song"}
+ 
+    elif text in ("previous song", "previous music", "last song"):
+       return {"action": "previous_song"}
+
+    elif text in ("stop music", "stop song"):
+         return {"action": "stop_music"}
+
     # =========================================================
     # MY PHOTOS
     # =========================================================
@@ -335,30 +519,157 @@ def detect_intent(text):
             "type": "pdf"
         }
 
+        # =========================================================
+    # PYTHON FILE SEARCH
     # =========================================================
+
+    if text in (
+        "find python files",
+        "find python file",
+        "find my python files",
+        "show python files",
+        "show python file"
+    ):
+        return {
+            "action": "find_file_type",
+            "type": "python"
+        }
+
+        # =========================================================
+    # SMART FILE TYPE SEARCH
+    # =========================================================
+
+    if text in (
+        "find pdf",
+        "find pdfs",
+        "find pdf files",
+        "find my pdf files",
+        "show pdf",
+        "show pdfs",
+        "show pdf files",
+        "show my pdf files"
+    ):
+        return {
+            "action": "find_file_type",
+            "type": "pdf"
+        }
+
+    if text in (
+        "find images",
+        "find image files",
+        "find my images",
+        "find my image files",
+        "show images",
+        "show image files",
+        "show my images"
+    ):
+        return {
+            "action": "find_file_type",
+            "type": "images"
+        }
+
+    if text in (
+        "find documents",
+        "find document files",
+        "find my document files",
+        "show documents",
+        "show document files",
+        "show my documents"
+    ):
+        return {
+            "action": "find_file_type",
+            "type": "documents"
+        }
+
+    if text in (
+        "find videos",
+        "find video files",
+        "find my video files",
+        "show videos",
+        "show video files",
+        "show my videos"
+    ):
+        return {
+            "action": "find_file_type",
+            "type": "videos"
+        }
+
+         # =========================================================
     # YOUTUBE SMART SEARCH
     # =========================================================
 
-    youtube_words = [
-        "song",
-        "songs",
-        "trailer",
-        "movie"
-    ]
+    youtube_query = None
 
-    if any(
-        word in original_text
-        for word in youtube_words
-    ):
-        return {
-            "action": "youtube_search",
-            "query": original_text
-        }
+    # YouTube patterns
+    if original_text.startswith("youtube search "):
+        youtube_query = original_text[len("youtube search "):].strip()
 
-       # =========================================================
+    elif original_text.startswith("search youtube "):
+        youtube_query = original_text[len("search youtube "):].strip()
+
+    elif original_text.startswith("youtube lo "):
+        youtube_query = original_text[len("youtube lo "):].strip()
+
+    # Telugu-English: "... youtube lo vetuku"
+    elif " youtube lo " in original_text:
+        youtube_query = original_text.split(" youtube lo ", 1)[0].strip()
+
+    # Clean ending words
+    if youtube_query:
+        youtube_query = youtube_query.replace(
+            " search cheyyi", ""
+        ).replace(
+            " search chey", ""
+        ).replace(
+            " vetuku", ""
+        ).strip()
+
+        if youtube_query:
+            return {
+                "action": "youtube_search",
+                "query": youtube_query
+            }
+
+            # =========================================================
+    # NATURAL YOUTUBE SEARCH
+    # =========================================================
+
+    if " on youtube" in original_text:
+        youtube_query = original_text.split(" on youtube", 1)[0].strip()
+
+        if youtube_query.startswith("find "):
+            youtube_query = youtube_query[len("find "):].strip()
+
+        if youtube_query:
+            return {
+                "action": "youtube_search",
+                "query": youtube_query
+            }
+
+    # =========================================================
     # GOOGLE SMART SEARCH
     # =========================================================
 
+    google_patterns = [
+        "google search ",
+        "search google ",
+        "search "
+    ]
+
+    google_query = None
+
+    for pattern in google_patterns:
+        if original_text.startswith(pattern):
+            google_query = original_text[len(pattern):].strip()
+            break
+
+    if google_query:
+        return {
+            "action": "google_search",
+            "query": google_query
+        }
+
+    # Smart Google keywords
     google_words = [
         "tutorial",
         "how to",
@@ -367,15 +678,12 @@ def detect_intent(text):
         "weather"
     ]
 
-    if any(
-        word in original_text
-        for word in google_words
-    ):
+    if any(word in original_text for word in google_words):
         return {
             "action": "google_search",
             "query": original_text
         }
-
+    
     # =========================================================
     # DELETE FILE / FOLDER
     # =========================================================
@@ -489,6 +797,256 @@ def detect_intent(text):
             "action": "move_item",
             "source": source.strip(),
             "destination": destination.strip()
+        }
+
+        # =========================================================
+    # DEVELOPER MODE
+    # =========================================================
+
+    if text in (
+        "open vscode",
+        "open vs code",
+        "start vscode",
+        "start vs code"
+    ):
+        return {
+            "action": "open_vscode"
+        }
+
+    if text in (
+        "open pycharm",
+        "start pycharm"
+    ):
+        return {
+            "action": "open_pycharm"
+        }
+
+    if text in (
+        "open visual studio",
+        "start visual studio"
+    ):
+        return {
+            "action": "open_visual_studio"
+        }
+
+    if text in (
+        "open android studio",
+        "start android studio"
+    ):
+        return {
+            "action": "open_android_studio"
+        }
+
+    if text in (
+        "open intellij",
+        "open intellij idea",
+        "start intellij"
+    ):
+        return {
+            "action": "open_intellij"
+        }
+
+    if text in (
+        "open eclipse",
+        "start eclipse"
+    ):
+        return {
+            "action": "open_eclipse"
+        }
+
+    if text in (
+        "open terminal",
+        "start terminal",
+        "open windows terminal"
+    ):
+        return {
+            "action": "open_terminal"
+        }
+
+    if text in (
+        "open powershell",
+        "start powershell"
+    ):
+        return {
+            "action": "open_powershell"
+        }
+
+    if text in (
+        "check python",
+        "check python version",
+        "python version"
+    ):
+        return {
+            "action": "check_python"
+        }
+
+    if text in (
+        "check git",
+        "check git version",
+        "git version"
+    ):
+        return {
+            "action": "check_git"
+        }
+
+    if text in (
+        "check node",
+        "check node version",
+        "node version"
+    ):
+        return {
+            "action": "check_node"
+        }
+
+    if text in (
+        "check java",
+        "check java version",
+        "java version"
+    ):
+        return {
+            "action": "check_java"
+        }
+
+        # =========================================================
+    # IT SUPPORT MODE
+    # =========================================================
+
+    if text in (
+        "check cpu",
+        "cpu usage",
+        "cpu information"
+    ):
+        return {
+            "action": "check_cpu"
+        }
+
+    if text in (
+        "check ram",
+        "ram usage",
+        "ram information",
+        "memory usage"
+    ):
+        return {
+            "action": "check_ram"
+        }
+
+
+    if text in (
+        "system information",
+        "system info",
+        "pc information",
+        "pc info"
+    ):
+        return {
+            "action": "system_information"
+        }
+
+    if text in (
+        "windows version",
+        "check windows version"
+    ):
+        return {
+            "action": "windows_version"
+        }
+
+    if text in (
+        "show ip",
+        "show ip address",
+        "check ip",
+        "ip address"
+    ):
+        return {
+            "action": "show_ip"
+        }
+
+    if text in (
+        "open device manager",
+        "device manager"
+    ):
+        return {
+            "action": "open_device_manager"
+        }
+
+    if text in (
+        "open services",
+        "services"
+    ):
+        return {
+            "action": "open_services"
+        }
+
+    if text in (
+        "open event viewer",
+        "event viewer"
+    ):
+        return {
+            "action": "open_event_viewer"
+        }
+
+        # =========================================================
+    # HARDWARE MODE
+    # =========================================================
+
+    if text in (
+        "battery information",
+        "battery info",
+        "check battery",
+        "battery"
+    ):
+        return {
+            "action": "battery_information"
+        }
+
+    if text in (
+        "bios information",
+        "bios info",
+        "check bios",
+        "bios"
+    ):
+        return {
+            "action": "bios_information"
+        }
+
+    if text in (
+        "gpu information",
+        "gpu info",
+        "check gpu",
+        "display information",
+        "graphics information"
+    ):
+        return {
+            "action": "gpu_information"
+        }
+
+    if text in (
+        "storage information",
+        "storage info",
+        "check storage",
+        "disk information",
+        "drive information"
+    ):
+        return {
+            "action": "storage_information"
+        }
+
+    if text in (
+        "usb devices",
+        "usb device",
+        "check usb",
+        "usb information"
+    ):
+        return {
+            "action": "usb_devices"
+        }
+
+    if text in (
+        "motherboard information",
+        "motherboard info",
+        "check motherboard",
+        "motherboard"
+    ):
+        return {
+            "action": "motherboard_information"
         }
 
     # =========================================================

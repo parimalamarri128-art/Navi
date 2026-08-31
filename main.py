@@ -1,5 +1,9 @@
 import os
 import webbrowser
+import threading
+
+import time
+from datetime import datetime
 
 from app_manager import (
     open_notepad,
@@ -9,9 +13,55 @@ from app_manager import (
     open_settings,
     open_cmd,
     open_chrome,
+    open_word,
+    open_excel,
+    open_powerpoint,
+    open_whatsapp,
+    open_telegram,
+    open_edge,
+    open_spotify,
 )
 
+from ai_chat import ask_ai
+
 from intent_manager import detect_intent
+
+from developer_manager import (
+    open_vscode,
+    open_pycharm,
+    open_visual_studio,
+    open_android_studio,
+    open_intellij,
+    open_eclipse,
+    open_terminal,
+    open_cmd,
+    open_powershell,
+    check_python,
+    check_git,
+    check_node,
+    check_java,
+)
+
+from it_manager import (
+    check_cpu,
+    check_ram,
+    check_disk,
+    system_information,
+    windows_version,
+    show_ip,
+    open_device_manager,
+    open_services,
+    open_event_viewer,
+)
+
+from hardware_manager import (
+    battery_information,
+    bios_information,
+    gpu_information,
+    storage_information,
+    usb_devices,
+    motherboard_information,
+)
 
 from browser_manager import (
     open_google,
@@ -44,6 +94,44 @@ from system_manager import (
     open_task_manager,
     open_control_panel,
 )
+
+from volume_manager import (
+    volume_up,
+    volume_down,
+    mute_volume,
+    unmute_volume,
+)
+
+from screenshot_manager import take_screenshot
+
+from brightness_manager import (
+    brightness_up,
+    brightness_down,
+    set_brightness,
+    get_brightness,
+)
+
+from notes_manager import (
+    create_note,
+    show_notes,
+    open_note,
+    delete_note,
+)
+
+from reminder_manager import (
+    create_reminder,
+    show_reminders,
+    delete_reminder,
+    get_due_reminders,
+)
+
+from media_manager import (
+    play_pause,
+    next_song,
+    previous_song,
+    stop_music,
+)
+
 
 from ai import understand_command
 from voice import VoiceManager
@@ -101,6 +189,32 @@ class Navi:
             return "Chrome opened."
 
         # =====================================================
+# MORE APPLICATIONS
+# =====================================================
+
+        elif action == "open_word":
+           return open_word()
+
+        elif action == "open_excel":
+           return open_excel()
+
+        elif action == "open_powerpoint":
+           return open_powerpoint()
+
+        elif action == "open_whatsapp":
+           return open_whatsapp()
+
+        elif action == "open_telegram":
+           return open_telegram()
+
+        elif action == "open_edge":
+           return open_edge()
+
+        elif action == "open_spotify":
+           return open_spotify()
+
+
+        # =====================================================
         # BROWSER
         # =====================================================
 
@@ -138,6 +252,98 @@ class Navi:
 
             youtube_search(query)
             return f"Searching YouTube for {query}"
+
+        # =====================================================
+# VOLUME
+# =====================================================
+
+        elif action == "volume_up":
+          return volume_up()
+
+        elif action == "volume_down":
+           return volume_down()
+
+        elif action == "mute_volume":
+           return mute_volume()
+
+        elif action == "unmute_volume":
+           return unmute_volume()
+
+        # =====================================================
+# SCREENSHOT
+# =====================================================
+
+        elif action == "take_screenshot":
+           return take_screenshot()
+
+        # =====================================================
+# BRIGHTNESS
+# =====================================================
+
+        elif action == "brightness_up":
+           return brightness_up()
+
+        elif action == "brightness_down":
+           return brightness_down()
+
+        elif action == "get_brightness":
+           return get_brightness()
+
+        elif action == "set_brightness":
+           level = command.get("level", 50)
+           return set_brightness(level)
+
+        # =====================================================
+# NOTES
+# =====================================================
+
+        elif action == "create_note":
+           name = command.get("name", "")
+           return create_note(name)
+
+        elif action == "show_notes":
+           return show_notes()
+
+        elif action == "open_note":
+           name = command.get("name", "")
+           return open_note(name)
+
+        elif action == "delete_note":
+           name = command.get("name", "")
+           return delete_note(name)
+
+        # =====================================================
+# REMINDERS
+# =====================================================
+
+        elif action == "create_reminder":
+           task = command.get("task", "")
+           time = command.get("time", "")
+           return create_reminder(task, time)
+
+        elif action == "show_reminders":
+           return show_reminders()
+
+        elif action == "delete_reminder":
+           task = command.get("task", "")
+           return delete_reminder(task)
+
+        # =====================================================
+# MEDIA CONTROLS
+# =====================================================
+
+        elif action == "play_pause":
+           return play_pause()
+
+        elif action == "next_song":
+           return next_song()
+
+        elif action == "previous_song":
+           return previous_song()
+
+        elif action == "stop_music":
+           return stop_music()
+
 
               # =========================================================
         # FILE MANAGER
@@ -338,6 +544,99 @@ class Navi:
                 destination
             )
 
+                # =========================================================
+        # DEVELOPER
+        # =========================================================
+
+        elif action == "open_vscode":
+            return open_vscode()
+
+        elif action == "open_pycharm":
+            return open_pycharm()
+
+        elif action == "open_visual_studio":
+            return open_visual_studio()
+
+        elif action == "open_android_studio":
+            return open_android_studio()
+
+        elif action == "open_intellij":
+            return open_intellij()
+
+        elif action == "open_eclipse":
+            return open_eclipse()
+
+        elif action == "open_terminal":
+            return open_terminal()
+
+        elif action == "open_powershell":
+            return open_powershell()
+
+        elif action == "check_python":
+            return check_python()
+
+        elif action == "check_git":
+            return check_git()
+
+        elif action == "check_node":
+            return check_node()
+
+        elif action == "check_java":
+            return check_java()
+        
+                # =========================================================
+        # IT SUPPORT MODE
+        # =========================================================
+
+        elif action == "check_cpu":
+            return check_cpu()
+
+        elif action == "check_ram":
+            return check_ram()
+
+        elif action == "check_disk":
+            return check_disk()
+
+        elif action == "system_information":
+            return system_information()
+
+        elif action == "windows_version":
+            return windows_version()
+
+        elif action == "show_ip":
+            return show_ip()
+
+        elif action == "open_device_manager":
+            return open_device_manager()
+
+        elif action == "open_services":
+            return open_services()
+
+        elif action == "open_event_viewer":
+            return open_event_viewer()
+
+                # =========================================================
+        # HARDWARE MODE
+        # =========================================================
+
+        elif action == "battery_information":
+            return battery_information()
+
+        elif action == "bios_information":
+            return bios_information()
+
+        elif action == "gpu_information":
+            return gpu_information()
+
+        elif action == "storage_information":
+            return storage_information()
+
+        elif action == "usb_devices":
+            return usb_devices()
+
+        elif action == "motherboard_information":
+            return motherboard_information()
+
         # =========================================================
         # SYSTEM
         # =========================================================
@@ -373,6 +672,24 @@ class Navi:
         else:
             command = understand_command(text)
 
+              # =====================================================
+        # AI CHAT FALLBACK
+        # =====================================================
+
+        if command.get("action") == "unknown":
+
+            threading.Thread(
+                target=self.ai_background,
+                args=(text,),
+                daemon=True
+            ).start()
+
+            return
+
+        # =====================================================
+        # NORMAL NAVI COMMAND
+        # =====================================================
+
         response = self.execute_command(command)
 
         self.ui.add_message(
@@ -382,6 +699,16 @@ class Navi:
 
         self.voice.speak(response)
 
+    def ai_background(self, text):
+
+        response = ask_ai(text)
+
+        self.ui.add_message(
+            "Navi",
+            response
+        )
+
+        self.voice.speak(response)
 
     def process_text_command(self):
 
@@ -397,14 +724,33 @@ class Navi:
             text
         )
 
+        self.ui.set_status(
+            "🤖 Thinking...",
+            "#3B82F6"
+        )
+
         self.process_command(text)
 
+        self.ui.set_status(
+            "🟢 Ready",
+            "#3FB950"
+        )
 
     def process_voice_command(self):
+
+        self.ui.set_status(
+            "🎤 Listening...",
+            "#F59E0B"
+        )
 
         text = self.voice.listen()
 
         if not text:
+
+            self.ui.set_status(
+                "🟢 Ready",
+                "#3FB950"
+            )
             return
 
         self.ui.add_message(
@@ -412,15 +758,19 @@ class Navi:
             text
         )
 
+        self.ui.set_status(
+            "🤖 Thinking...",
+            "#3B82F6"
+        )
+
         self.process_command(text)
 
+        self.ui.set_status(
+            "🟢 Ready",
+            "#3FB950"
+        )
 
     def start(self):
-
-        self.ui.add_message(
-            "Navi",
-            "Hello! I am Navi. How can I help you?"
-        )
 
         self.voice.speak(
             "Hello! I am Navi. How can I help you?"

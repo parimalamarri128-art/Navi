@@ -10,15 +10,42 @@ def create_folder(folder_path):
     return f"Folder created: {folder_path}"
 
 
+
 def open_folder(folder_path):
-    if os.path.exists(folder_path):
+    if not folder_path:
+        return "Please tell me the folder name."
+
+    folder_path = folder_path.strip()
+
+    # First: check if it is already a valid path
+    if os.path.isdir(folder_path):
+        try:
+            subprocess.Popen(
+                ["explorer", os.path.abspath(folder_path)]
+            )
+            return f"Opened: {os.path.abspath(folder_path)}"
+
+        except Exception as error:
+            return f"Could not open folder: {error}"
+
+    # Search by folder name
+    results = find_folder(folder_path)
+
+    if not results:
+        return f"Folder not found: {folder_path}"
+
+    # Open the first matching folder
+    folder = results[0]
+
+    try:
         subprocess.Popen(
-            ["explorer", os.path.abspath(folder_path)]
+            ["explorer", os.path.abspath(folder)]
         )
-        return f"Opened: {folder_path}"
 
-    return f"Folder not found: {folder_path}"
+        return f"Opened: {folder}"
 
+    except Exception as error:
+        return f"Could not open folder: {error}"
 
 def open_file(file_path):
     if not os.path.exists(file_path):
@@ -32,18 +59,82 @@ def open_file(file_path):
         return f"Could not open file: {error}"
 
 
-def find_folder(folder_name, search_path="."):
+def find_folder(folder_name, search_path=None):
+    global last_search_results
+
+    if not folder_name:
+        return []
+
+    folder_name = folder_name.lower().strip()
+
+    username = os.environ.get("USERNAME")
+
+    if not username:
+        return []
+
+    user_path = os.path.join(
+        "C:\\Users",
+        username
+    )
+
+    # Common Windows folders
+    special_folders = {
+        "desktop": os.path.join(user_path, "Desktop"),
+        "documents": os.path.join(user_path, "Documents"),
+        "downloads": os.path.join(user_path, "Downloads"),
+        "pictures": os.path.join(user_path, "Pictures"),
+        "videos": os.path.join(user_path, "Videos"),
+    }
+
+    # Directly check common Windows folders
+    if folder_name in special_folders:
+
+        folder_path = special_folders[folder_name]
+
+        if os.path.isdir(folder_path):
+            last_search_results = [folder_path]
+
+            return [folder_path]
+
+        return []
+
+    # Search specific path if provided
+    if search_path:
+        locations = [search_path]
+
+    else:
+        locations = [
+            os.path.join(user_path, "Desktop"),
+            os.path.join(user_path, "Documents"),
+            os.path.join(user_path, "Downloads"),
+            os.path.join(user_path, "Pictures"),
+            os.path.join(user_path, "Videos"),
+        ]
+
     results = []
 
-    for root, dirs, files in os.walk(search_path):
-        for directory in dirs:
-            if directory.lower() == folder_name.lower():
-                results.append(
-                    os.path.join(root, directory)
-                )
+    for location in locations:
+
+        if not os.path.exists(location):
+            continue
+
+        for root, dirs, files in os.walk(location):
+
+            for directory in dirs:
+
+                if directory.lower() == folder_name:
+
+                    results.append(
+                        os.path.join(root, directory)
+                    )
+
+                    if len(results) >= 10:
+                        last_search_results = results.copy()
+                        return results
+
+    last_search_results = results.copy()
 
     return results
-
 
 def find_file(file_name, search_path="."):
     results = []
@@ -306,6 +397,11 @@ def find_file_type(file_type):
         "pdf": [
             ".pdf"
         ],
+
+        "python": [
+    ".py"
+     ],
+
         "document": [
             ".doc",
             ".docx",
@@ -1056,3 +1152,5 @@ def find_and_move_file(file_name, destination):
 
     except Exception as error:
         return f"Could not move: {error}"
+
+   

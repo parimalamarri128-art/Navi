@@ -57,6 +57,69 @@ def open_chrome():
     except Exception:
         return "Chrome not found."
 
+    # =========================================================
+# MICROSOFT OFFICE
+# =========================================================
+
+def open_word():
+    try:
+        subprocess.Popen("start winword", shell=True)
+        return "Microsoft Word opened."
+    except Exception:
+        return "Microsoft Word not found."
+
+
+def open_excel():
+    try:
+        subprocess.Popen("start excel", shell=True)
+        return "Microsoft Excel opened."
+    except Exception:
+        return "Microsoft Excel not found."
+
+
+def open_powerpoint():
+    try:
+        subprocess.Popen("start powerpnt", shell=True)
+        return "Microsoft PowerPoint opened."
+    except Exception:
+        return "Microsoft PowerPoint not found."
+
+
+# =========================================================
+# OTHER APPS
+# =========================================================
+
+def open_whatsapp():
+    try:
+        subprocess.Popen("start whatsapp:", shell=True)
+        return "WhatsApp opened."
+    except Exception:
+        return "WhatsApp not found."
+
+
+def open_telegram():
+    try:
+        subprocess.Popen("start telegram:", shell=True)
+        return "Telegram opened."
+    except Exception:
+        return "Telegram not found."
+
+
+def open_edge():
+    try:
+        subprocess.Popen("start msedge", shell=True)
+        return "Microsoft Edge opened."
+    except Exception:
+        return "Microsoft Edge not found."
+
+
+def open_spotify():
+    try:
+        subprocess.Popen("start spotify", shell=True)
+        return "Spotify opened."
+    except Exception:
+        return "Spotify not found."
+
 
 # =========================================================
 # USER LOCATIONS
